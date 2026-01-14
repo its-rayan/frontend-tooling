@@ -7,4 +7,21 @@ module.exports = {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
     },
+    module: {
+        rules: [
+            {
+                test: /\.(?:js|mjs|cjs)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        // our code will be compatible with Internet Explorer 11
+                        presets: [
+                            ['@babel/preset-env', { targets: "IE 11" }]
+                        ]
+                    }
+                }
+            }
+        ]
+    }
 };
