@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: path.join(__dirname, 'src', 'index.js'),
+    entry: path.join(__dirname, 'src', 'index.jsx'),
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].[contenthash].js',
@@ -12,14 +12,14 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(?:js|mjs|cjs)$/,
+                test: /\.(?:js|mjs|cjs|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         // our code will be compatible with Internet Explorer 11
                         presets: [
-                            ['@babel/preset-env', { targets: "IE 11" }]
+                            '@babel/preset-react', ['@babel/preset-env', { targets: "IE 11" }]
                         ]
                     }
                 }
@@ -29,4 +29,7 @@ module.exports = {
     plugins: [new HtmlWebpackPlugin({
         template: path.join(__dirname, 'public', 'index.html'),
     })],
+    devServer: {
+        port: 3000,
+    },
 };
