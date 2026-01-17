@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: path.join(__dirname, 'src', 'index.jsx'),
+    entry: path.join(__dirname, 'src', 'index.tsx'),
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].[contenthash].js',
@@ -12,7 +12,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(?:js|mjs|cjs|jsx)$/,
+                test: /\.(?:js|mjs|cjs|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -23,7 +23,12 @@ module.exports = {
                         ]
                     }
                 }
-            }
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
         ]
     },
     plugins: [new HtmlWebpackPlugin({
